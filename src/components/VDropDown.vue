@@ -26,7 +26,6 @@ export default {
   },
   methods:{
       handleSelectedOption: function(option) {
-          console.log(option)
           this.$emit('option-selected', option)
       }
   }

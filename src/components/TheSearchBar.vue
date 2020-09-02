@@ -9,7 +9,7 @@
     </div>
     <div class="col-8">
       <b-form-input
-        v-model="input"
+        @input="handleSearch"
         :placeholder="placeholderText"
       ></b-form-input>
     </div>
@@ -18,28 +18,45 @@
 
 <script>
 import VDropDown from "./VDropDown";
+import { mapActions } from "vuex";
 export default {
   name: "TheSearchBar",
   components: {
     VDropDown,
   },
   methods: {
-    updateSearchBy: function(value) {
-      console.log(value);
-      this.searchBy = value;
+    ...mapActions([
+      "fetchCocktailRecipesByName",
+      "fetchCocktailRecipesByIngredient",
+    ]),
+    updateSearchBy: function(option) {
+      this.searchBy = option;
+    },
+    handleSearch: function(value) {
+      let action;
+      switch (this.searchBy) {
+        case "Ingredient":
+          action = this.fetchCocktailRecipesByIngredient;
+          break;
+        case "Name":
+          action = this.fetchCocktailRecipesByName;
+          break;
+        default:
+          break;
+      }
+      action(value);
     },
   },
   computed: {
-      placeholderText: function(){
-          return `search cocktail by ${this.searchBy}`
-      }
+    placeholderText: function() {
+      return `search cocktail by ${this.searchBy}`;
+    },
   },
-  data() {
+  data: function() {
+    const searchByOptions = ["Name", "Ingredient"];
     return {
-      input: "",
-      // default
-      searchBy: "name",
-      searchByOptions: ["name", "ingredient"],
+      searchBy: searchByOptions[0],
+      searchByOptions,
     };
   },
 };
