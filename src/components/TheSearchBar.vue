@@ -18,7 +18,7 @@
 
 <script>
 import VDropDown from "./VDropDown";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   name: "TheSearchBar",
   components: {
@@ -33,18 +33,20 @@ export default {
       this.searchBy = option;
     },
     handleSearch: function(value) {
-      let action;
-      switch (this.searchBy) {
-        case "Ingredient":
-          action = this.fetchCocktailRecipesByIngredient;
-          break;
-        case "Name":
-          action = this.fetchCocktailRecipesByName;
-          break;
-        default:
-          break;
+      if (value.length > 3) {
+        let action;
+        switch (this.searchBy) {
+          case "Ingredient":
+            action = this.fetchCocktailRecipesByIngredient;
+            break;
+          case "Name":
+            action = this.fetchCocktailRecipesByName;
+            break;
+          default:
+            break;
+        }
+        action(value);
       }
-      action(value);
     },
   },
   computed: {

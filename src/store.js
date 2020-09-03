@@ -60,5 +60,4 @@ export const store = new Vuex.Store({
         .catch((res) => {});
     },
   },
-  getters: {},
 });
