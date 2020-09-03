@@ -5,6 +5,7 @@
         :key="result.idDrink"
         :title="result.strDrink"
         :imageUrl="result.strDrinkThumb"
+        :category="result.strCategory"
         class="col-lg-4 col-md-6 col-sm-12"
       />
   </div>

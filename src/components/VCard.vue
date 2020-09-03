@@ -9,7 +9,7 @@
       class="mb-3"
     >
       <b-card-text>
-        {{description}}
+        {{category}}
       </b-card-text>
     </b-card>
   </div>
